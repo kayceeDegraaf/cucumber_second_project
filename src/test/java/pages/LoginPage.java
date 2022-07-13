@@ -24,6 +24,6 @@ public class LoginPage {
     public WebElement loginButton;
 
     @FindBy(id = "ctl00_MainContent_status")
-    public WebElement invalidLoginAttemptText;
+    public WebElement invalidText;
 
 }

@@ -51,14 +51,14 @@ Feature: Smart Bear Software
     And user selects "FamilyAlbum" as product
     And user enters 2 as quantity
     And user enters all address information
-      | Kanari Green | 318 Todd St | Park Forest | IL | 60466 |
+      | Kaycee Degraaf | 539 Prairie St | Marseilles | IL | 61341 |
     And user enters all payment information
-      | Visa | 4444555566667777 | 07/27 |
+      | Visa | 1234123412341234 | 06/25 |
     And user clicks on "Process" button
     And user clicks on "View all orders" menu item
     Then user should see their order displayed in the List of All Orders table
     And validate all information entered displayed correct with the order
-      | Kanari Green | FamilyAlbum | 2 | DATE | 318 Todd St | Park Forest | IL | 60466 | Visa | 4444555566667777 | 07/27 |
+      | Kaycee Degraaf | FamilyAlbum | 2 | DATE | 539 Prairie St | Marseilles | IL | 61341 | Visa | 1234123412341234 | 06/25 |
 
 
   @Regression

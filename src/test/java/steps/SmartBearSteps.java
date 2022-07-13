@@ -12,12 +12,9 @@ import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.WebOrdersPage;
 import utils.Driver;
-import utils.Waiter;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class SmartBearSteps {
 
@@ -51,7 +48,7 @@ public class SmartBearSteps {
 
     @Then("user should see {string} Message")
     public void userShouldSeeMessage(String text) {
-        Assert.assertEquals(text, loginPage.invalidLoginAttemptText.getText());
+        Assert.assertEquals(text, loginPage.invalidText.getText());
     }
 
     @Then("user should be routed to {string}")
@@ -80,7 +77,7 @@ public class SmartBearSteps {
                 loginPage.loginButton.click();
                 break;
             case "Delete Selected":
-                webOrdersPage.deleteSelectedButton.click();
+                webOrdersPage.deleteButton.click();
                 break;
             default:
                 System.out.println("The button is not defined correctly!!!");
@@ -90,14 +87,14 @@ public class SmartBearSteps {
 
     @Then("all rows should be checked")
     public void allRowsShouldBeChecked() {
-        for (WebElement checkBox : webOrdersPage.checkBoxes) {
+        for (WebElement checkBox : webOrdersPage.checkBox) {
             Assert.assertTrue(checkBox.isSelected());
         }
     }
 
     @Then("all rows should be unchecked")
     public void allRowsShouldBeUnchecked() {
-        for (WebElement checkBox : webOrdersPage.checkBoxes) {
+        for (WebElement checkBox : webOrdersPage.checkBox) {
             Assert.assertFalse(checkBox.isSelected());
         }
     }
@@ -114,13 +111,13 @@ public class SmartBearSteps {
 
     @And("user enters {int} as quantity")
     public void userEntersAsQuantity(int num) {
-        webOrdersPage.productInfoQuantity.sendKeys(Integer.toString(num));
+        webOrdersPage.productQuantity.sendKeys(Integer.toString(num));
     }
 
     @And("user enters all address information")
     public void userEntersAllAddressInformation(DataTable dataTable) {
         for (int i = 0; i < dataTable.asList().size(); i++) {
-            webOrdersPage.addressInfoInputBoxes.get(i).sendKeys(dataTable.asList().get(i));
+            webOrdersPage.addressInputBox.get(i).sendKeys(dataTable.asList().get(i));
         }
     }
 
@@ -134,26 +131,26 @@ public class SmartBearSteps {
 
     @Then("user should see their order displayed in the List of All Orders table")
     public void userShouldSeeTheirOrderDisplayedInTheTable() {
-        Assert.assertTrue(webOrdersPage.newOrderAdded.size() > 9);
+        Assert.assertTrue(webOrdersPage.addedNewOrder.size() > 9);
     }
 
     @And("validate all information entered displayed correct with the order")
     public void validateAllInformationEnteredDisplayedCorrectWithTheOrder(DataTable dataTable) {
-        for (int i = 1; i < webOrdersPage.newOrderDetailsTableInfo.size() - 1; i++) {
+        for (int i = 1; i < webOrdersPage.newOrderTableDetails.size() - 1; i++) {
             if (i == 4){
-                Assert.assertEquals(new SimpleDateFormat("MM/dd/yyyy").format(new Date()), webOrdersPage.newOrderDetailsTableInfo.get(i).getText());
+                Assert.assertEquals(new SimpleDateFormat("MM/dd/yyyy").format(new Date()), webOrdersPage.newOrderTableDetails.get(i).getText());
             }
-            else Assert.assertEquals(dataTable.asList().get(i - 1), webOrdersPage.newOrderDetailsTableInfo.get(i).getText());
+            else Assert.assertEquals(dataTable.asList().get(i - 1), webOrdersPage.newOrderTableDetails.get(i).getText());
         }
     }
 
     @Then("validate all orders are deleted from the List of All Orders")
     public void validateAllOrdersAreDeletedFromTheListOfAllOrders() {
-        Assert.assertTrue(webOrdersPage.newOrderAdded.size() < 2);
+        Assert.assertTrue(webOrdersPage.addedNewOrder.size() < 2);
     }
 
     @And("validate user sees {string} Message")
     public void validateUserSeesMessage(String deletedMessage) {
-        Assert.assertTrue(webOrdersPage.orderDeletedText.getText().contains(deletedMessage));
+        Assert.assertTrue(webOrdersPage.deleteOrderText.getText().contains(deletedMessage));
     }
 }
