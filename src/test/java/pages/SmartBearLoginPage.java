@@ -6,11 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Driver;
 
-public class LoginPage {
+public class SmartBearLoginPage {
 
     WebDriver driver;
 
-    public LoginPage(){
+    public SmartBearLoginPage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

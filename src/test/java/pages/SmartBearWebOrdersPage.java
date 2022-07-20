@@ -9,11 +9,11 @@ import utils.Driver;
 
 import java.util.List;
 
-public class WebOrdersPage {
+public class SmartBearWebOrdersPage {
 
     WebDriver driver;
 
-    public WebOrdersPage() {
+    public SmartBearWebOrdersPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

@@ -9,8 +9,8 @@ import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.LoginPage;
-import pages.WebOrdersPage;
+import pages.SmartBearLoginPage;
+import pages.SmartBearWebOrdersPage;
 import utils.Driver;
 
 import java.text.SimpleDateFormat;
@@ -19,14 +19,14 @@ import java.util.Date;
 public class SmartBearSteps {
 
     WebDriver driver;
-    LoginPage loginPage;
-    WebOrdersPage webOrdersPage;
+    SmartBearLoginPage smartBearLoginPage;
+    SmartBearWebOrdersPage smartBearWebOrdersPage;
 
     @Before
     public void setup() {
         driver = Driver.getDriver();
-        loginPage = new LoginPage();
-        webOrdersPage = new WebOrdersPage();
+        smartBearLoginPage = new SmartBearLoginPage();
+        smartBearWebOrdersPage = new SmartBearWebOrdersPage();
     }
 
 
@@ -37,18 +37,18 @@ public class SmartBearSteps {
 
     @When("user enters username as {string}")
     public void userEntersUsernameAs(String userName) {
-        loginPage.usernameInputBox.sendKeys(userName);
+        smartBearLoginPage.usernameInputBox.sendKeys(userName);
     }
 
     @And("user enters password as {string}")
     public void userEntersPasswordAs(String password) {
-        loginPage.passwordInputBox.sendKeys(password);
+        smartBearLoginPage.passwordInputBox.sendKeys(password);
     }
 
 
     @Then("user should see {string} Message")
     public void userShouldSeeMessage(String text) {
-        Assert.assertEquals(text, loginPage.invalidText.getText());
+        Assert.assertEquals(text, smartBearLoginPage.invalidText.getText());
     }
 
     @Then("user should be routed to {string}")
@@ -59,7 +59,7 @@ public class SmartBearSteps {
     @And("validate below menu items are displayed")
     public void validateBelowMenuItemsAreDisplayed(DataTable dataTable) {
         for (int i = 0; i < dataTable.asList().size(); i++) {
-            Assert.assertEquals(dataTable.asList().get(i), webOrdersPage.webOrdersMenuItems.get(i).getText());
+            Assert.assertEquals(dataTable.asList().get(i), smartBearWebOrdersPage.webOrdersMenuItems.get(i).getText());
         }
     }
 
@@ -68,89 +68,89 @@ public class SmartBearSteps {
         switch (button) {
             case "Check All":
             case "Uncheck All":
-                webOrdersPage.clickCheckUncheckButton(button);
+                smartBearWebOrdersPage.clickCheckUncheckButton(button);
                 break;
             case "Process":
-                webOrdersPage.processButton.click();
+                smartBearWebOrdersPage.processButton.click();
                 break;
             case "Login":
-                loginPage.loginButton.click();
+                smartBearLoginPage.loginButton.click();
                 break;
             case "Delete Selected":
-                webOrdersPage.deleteButton.click();
+                smartBearWebOrdersPage.deleteButton.click();
                 break;
             default:
-                System.out.println("The button is not defined correctly!!!");
+                System.out.println("Link text is not properly defined in the feature file!!!");
         }
 
     }
 
     @Then("all rows should be checked")
     public void allRowsShouldBeChecked() {
-        for (WebElement checkBox : webOrdersPage.checkBox) {
+        for (WebElement checkBox : smartBearWebOrdersPage.checkBox) {
             Assert.assertTrue(checkBox.isSelected());
         }
     }
 
     @Then("all rows should be unchecked")
     public void allRowsShouldBeUnchecked() {
-        for (WebElement checkBox : webOrdersPage.checkBox) {
+        for (WebElement checkBox : smartBearWebOrdersPage.checkBox) {
             Assert.assertFalse(checkBox.isSelected());
         }
     }
 
     @When("user clicks on {string} menu item")
     public void userClicksOnMenuItem(String menuItem) {
-        webOrdersPage.clickMenuItem(menuItem);
+        smartBearWebOrdersPage.clickMenuItem(menuItem);
     }
 
     @And("user selects {string} as product")
     public void userSelectsAsProduct(String product) {
-        webOrdersPage.clickProductOption(product);
+        smartBearWebOrdersPage.clickProductOption(product);
     }
 
     @And("user enters {int} as quantity")
     public void userEntersAsQuantity(int num) {
-        webOrdersPage.productQuantity.sendKeys(Integer.toString(num));
+        smartBearWebOrdersPage.productQuantity.sendKeys(Integer.toString(num));
     }
 
     @And("user enters all address information")
     public void userEntersAllAddressInformation(DataTable dataTable) {
         for (int i = 0; i < dataTable.asList().size(); i++) {
-            webOrdersPage.addressInputBox.get(i).sendKeys(dataTable.asList().get(i));
+            smartBearWebOrdersPage.addressInputBox.get(i).sendKeys(dataTable.asList().get(i));
         }
     }
 
     @And("user enters all payment information")
     public void userEntersAllPaymentInformation(DataTable dataTable) {
 
-        webOrdersPage.clickCreditCardTypeRadioButton(dataTable);
-        webOrdersPage.cardNumberInputBox.sendKeys(dataTable.asList().get(1));
-        webOrdersPage.expireDateInputBox.sendKeys(dataTable.asList().get(2));
+        smartBearWebOrdersPage.clickCreditCardTypeRadioButton(dataTable);
+        smartBearWebOrdersPage.cardNumberInputBox.sendKeys(dataTable.asList().get(1));
+        smartBearWebOrdersPage.expireDateInputBox.sendKeys(dataTable.asList().get(2));
     }
 
     @Then("user should see their order displayed in the List of All Orders table")
     public void userShouldSeeTheirOrderDisplayedInTheTable() {
-        Assert.assertTrue(webOrdersPage.addedNewOrder.size() > 9);
+        Assert.assertTrue(smartBearWebOrdersPage.addedNewOrder.size() > 9);
     }
 
     @And("validate all information entered displayed correct with the order")
     public void validateAllInformationEnteredDisplayedCorrectWithTheOrder(DataTable dataTable) {
-        for (int i = 1; i < webOrdersPage.newOrderTableDetails.size() - 1; i++) {
+        for (int i = 1; i < smartBearWebOrdersPage.newOrderTableDetails.size() - 1; i++) {
             if (i == 4){
-                Assert.assertEquals(new SimpleDateFormat("MM/dd/yyyy").format(new Date()), webOrdersPage.newOrderTableDetails.get(i).getText());
+                Assert.assertEquals(new SimpleDateFormat("MM/dd/yyyy").format(new Date()), smartBearWebOrdersPage.newOrderTableDetails.get(i).getText());
             }
-            else Assert.assertEquals(dataTable.asList().get(i - 1), webOrdersPage.newOrderTableDetails.get(i).getText());
+            else Assert.assertEquals(dataTable.asList().get(i - 1), smartBearWebOrdersPage.newOrderTableDetails.get(i).getText());
         }
     }
 
     @Then("validate all orders are deleted from the List of All Orders")
     public void validateAllOrdersAreDeletedFromTheListOfAllOrders() {
-        Assert.assertTrue(webOrdersPage.addedNewOrder.size() < 2);
+        Assert.assertTrue(smartBearWebOrdersPage.addedNewOrder.size() < 2);
     }
 
     @And("validate user sees {string} Message")
     public void validateUserSeesMessage(String deletedMessage) {
-        Assert.assertTrue(webOrdersPage.deleteOrderText.getText().contains(deletedMessage));
+        Assert.assertTrue(smartBearWebOrdersPage.deleteOrderText.getText().contains(deletedMessage));
     }
 }
